@@ -1,0 +1,4 @@
+*.xml
+.idea/basic.iml
+.DS_Store
+.idea/
