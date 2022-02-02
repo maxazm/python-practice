@@ -38,4 +38,8 @@ FILLES = [
     "setup.cfg",
     "tox.ini",
 ]
-
+#行の折り返し
+foo = long_function_name(
+    var_one, var_two,
+    var_three, var_four
+)
