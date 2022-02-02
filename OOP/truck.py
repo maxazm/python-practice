@@ -20,23 +20,33 @@ class Truck(Car):
         self.curr_capacity = curr_capacity
         print("Truck is called")
 
+    def gas(self):
+        if self.curr_capacity > self.max_capacity:
+            print("重量オーバーなので走れません")
+            print(f"最低でも{self.curr_capacity - self.max_capacity}kgの荷物を降ろしてください")
+        else:
+            super().gas()
+
     def load(self, kg):
         if self.curr_capacity + kg < 0:
-            self.print_info()
-            print(f"{self.curr_capacity}kgを超える荷物を下ろすことができません")
+            print(f"{self.curr_capacity}kgを超える荷物を降ろすことができません")
         elif self.curr_capacity + kg > self.max_capacity:
             self.curr_capacity += kg
-            self.print_info()
             print("最大積載量を超えました")
         else:
             self.curr_capacity += kg
-            self.print_info()
+        self.print_info()
 
     def print_info(self):
         print("現在の積載量は{}kgです".format(self.curr_capacity))
 
-truck = Truck("Big Truck", "14", "TOYOTA", 2000, 1200)
-print(truck.max_capacity)
-truck.load(100)
-truck.load(1000)
-truck.load(-10000)
+if __name__ == "__main__":
+    truck = Truck("Big Truck", "14", "TOYOTA", 2000, 1200)
+    print(truck.max_capacity)
+    truck.load(100)
+    truck.load(1000)
+    truck.load(-10000)
+    truck.load(-100)
+    truck.gas()
+    truck.load(-200)
+    truck.gas()
