@@ -1,4 +1,6 @@
 import time
+
+
 class BankAccount(object):
     count = 0
     def __init__(self, name, balance):
@@ -6,6 +8,7 @@ class BankAccount(object):
         self.balance = balance
         self.account_number = BankAccount.count
         self.showBalance()
+        self.transaction = []
         BankAccount.count += 1
 
     def withdraw(self, total):
@@ -27,16 +30,16 @@ class BankAccount(object):
         print(f"{self.name}(口座番号：{self.account_number})の残高は{self.balance}円です")
 
     def transaction_histry(self, total, type):
-        transaction = []
         if type == "withdraw":
-            transaction.append({"Name" : self.name, "Balance" : self.balance, "Withdraw": total})
+            self.transaction.append({"Name" : self.name, "Balance" : self.balance, "Withdraw": total, "Time": BankAccount.get_time()})
         elif type == "deposit":
-            transaction.append({"Name": self.name, "Balance": self.balance, "Deposit": total})
-        print(transaction)
+            self.transaction.append({"Name": self.name, "Balance": self.balance, "Deposit": total, "Time": BankAccount.get_time()})
+        print(self.transaction)
 
     @staticmethod
-    def getTime():
-        return time.ctime()
+    def get_time():
+        current_time = time.localtime()
+        return "{0.tm_year}年{0.tm_mon}月{0.tm_mday}日{0.tm_hour}時{0.tm_min}分".format(current_time)
 
 
 john = BankAccount("John", 1000000)
@@ -46,3 +49,5 @@ john.withdraw(10000)
 mac = BankAccount("Mac", 2121)
 print(mac.account_number)
 mac.deposit(2123)
+mac.deposit(2123)
+print(BankAccount.get_time())
